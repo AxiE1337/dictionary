@@ -13,8 +13,6 @@ import { ThemeContext } from './context/ThemeContext'
 function App() {
   const { theme } = useContext(ThemeContext)
 
-  console.log(theme)
-
   const themes = {
     dark: {
       color: 'white',
@@ -31,7 +29,9 @@ function App() {
     <div
       className='app'
       style={
-        localStorage.getItem('mod') === 'light' ? themes.dark : themes.light
+        localStorage.getItem('mod') === 'light' && theme
+          ? themes.dark
+          : themes.light
       }
     >
       <Router>

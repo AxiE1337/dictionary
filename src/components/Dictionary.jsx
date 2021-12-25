@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import Words from './Words'
+import axios from 'axios'
 import { useParams, useNavigate } from 'react-router-dom'
 import styles from '../scss/dictionary.module.css'
-import { TextField, IconButton, CircularProgress } from '@mui/material'
+import { TextField, IconButton, CircularProgress, Button } from '@mui/material'
 import { FaSearch } from 'react-icons/fa'
 
 const Dictionary = () => {
@@ -46,13 +47,25 @@ const Dictionary = () => {
     }
   }, [word.word, navigate, Owlbot])
 
-  const getData = async (e) => {
+  const randomWordHandler = async (e) => {
+    e.preventDefault()
+    try {
+      const randomWordData = await axios.get(
+        'https://random-word-api.herokuapp.com/word?number=1&swear=0'
+      )
+      getDataRandom(e, randomWordData.data[0])
+    } catch (err) {
+      console.log(err.message)
+    }
+  }
+
+  const getData = async (e, value) => {
     e.preventDefault()
     if (inputState !== '') {
       setIsLoading(true)
       try {
-        const data = await client.define(inputState.toLocaleLowerCase())
-        navigate(`/${inputState}`)
+        const data = await client.define(value.toLocaleLowerCase())
+        navigate(`/${value}`)
         setIsLoading(false)
         setData(data)
         setInputState('')
@@ -64,10 +77,26 @@ const Dictionary = () => {
     }
   }
 
+  const getDataRandom = async (e, value) => {
+    e.preventDefault()
+    setIsLoading(true)
+    try {
+      const data = await client.define(value)
+      navigate(`/${value}`)
+      setIsLoading(false)
+      setData(data)
+    } catch (err) {
+      randomWordHandler(e)
+      console.log(err.message)
+      navigate('/')
+      setIsLoading(false)
+    }
+  }
+
   return (
     <>
       <div className={styles.main}>
-        <form onSubmit={getData}>
+        <form onSubmit={(e) => getData(e, inputState)}>
           <TextField
             style={
               localStorage.getItem('mod') === 'light'
@@ -82,10 +111,13 @@ const Dictionary = () => {
               setInputState(e.target.value)
             }}
           ></TextField>
-          <IconButton variant='primary' onClick={getData}>
+          <IconButton variant='primary' onClick={(e) => getData(e, inputState)}>
             <FaSearch size='30' />
           </IconButton>
         </form>
+        <Button variant='primary' onClick={(e) => randomWordHandler(e)}>
+          Random word
+        </Button>
       </div>
       {!isLoading ? (
         <Words data={data} />
