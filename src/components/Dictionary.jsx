@@ -30,7 +30,7 @@ const Dictionary = () => {
   useEffect(() => {
     if (word.word !== undefined) {
       setIsLoading(true)
-      client
+      Owlbot(process.env.REACT_APP_TOKEN)
         .define(word.word)
         .then((res) => {
           if (res !== undefined) {
@@ -44,7 +44,7 @@ const Dictionary = () => {
           setIsLoading(false)
         })
     }
-  }, [word.word])
+  }, [word.word, navigate, Owlbot])
 
   const getData = async (e) => {
     e.preventDefault()
