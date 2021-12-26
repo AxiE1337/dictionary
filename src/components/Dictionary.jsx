@@ -17,8 +17,8 @@ const Dictionary = () => {
 
   const themes = {
     dark: {
-      color: 'white',
-      background: '#38454C',
+      color: '#E1E1E1',
+      background: '#E1E1E1',
       transition: '1s ease',
     },
     light: {
@@ -104,7 +104,7 @@ const Dictionary = () => {
                 : themes.light
             }
             fullWidth
-            variant='outlined'
+            variant='filled'
             label='word...'
             value={inputState}
             onChange={(e) => {

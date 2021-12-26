@@ -15,13 +15,13 @@ function App() {
 
   const themes = {
     dark: {
-      color: 'white',
-      background: '#445760',
+      color: '#E1E1E1',
+      background: '#121212',
       transition: '1s ease',
     },
     light: {
-      color: '#445760',
-      background: 'white',
+      color: '#121212',
+      background: '#E1E1E1',
       transition: '1s ease',
     },
   }

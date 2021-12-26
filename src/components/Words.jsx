@@ -5,15 +5,13 @@ import { Typography } from '@mui/material'
 const Words = ({ data }) => {
   const themes = {
     dark: {
-      color: 'white',
-      background: '#38454C',
-      borderRadius: '10px',
-      padding: '0.5em',
+      color: '#E1E1E1',
+      background: '#1E1E1E',
       transition: '1s ease',
     },
     light: {
       color: '#38454C',
-      background: 'white',
+      background: '#E1E1E1',
       transition: '1s ease',
     },
   }

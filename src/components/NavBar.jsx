@@ -8,13 +8,13 @@ const NavBar = () => {
 
   const themes = {
     dark: {
-      color: 'white',
-      background: '#38454C',
+      color: '#E1E1E1',
+      background: '#2E2E2E',
       transition: '1s ease',
     },
     light: {
-      color: '#38454C',
-      background: 'white',
+      color: '#2E2E2E',
+      background: '#E1E1E1',
       transition: '1s ease',
     },
   }
